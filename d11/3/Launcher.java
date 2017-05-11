@@ -19,6 +19,25 @@ public class Launcher {
 		System.out.println(tree.contains(42));
 
 		System.out.println(tree.toString());
+
+		IntSortedList list = new ListIntSortedList();
+
+		list.add(1);
+		list.add(10);
+		list.add(5);
+		list.add(7);
+		list.add(76);
+		list.add(54);
+		list.add(2);
+
+		System.out.println(list.contains(5));
+		System.out.println(list.contains(42));
+
+		list.add(42);
+
+		System.out.println(list.contains(42));
+
+		System.out.println(list.toString());
 	}
 
 }
