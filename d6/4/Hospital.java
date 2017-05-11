@@ -3,30 +3,29 @@ public class Hospital {
 	private Patient root;
 
 	public void addPatient(Patient newPatient) {
-		Patient patient = this.root;
-		if (patient == null) {
+		if (this.root == null) {
 			this.root = newPatient;
-			patient = this.root;
-		} else {
-			do {
-				patient = patient.getNextPatient();
-			} while (!patient.equals(this.root));
-			patient.setNextPatient(newPatient);
+			this.root.setNextPatient(this.root);
+			return;
+		}
+		Patient patient = this.root;
+		while (!patient.getNextPatient().equals(this.root)) {
 			patient = patient.getNextPatient();
 		}
-		patient.setNextPatient(this.root);
+		patient.setNextPatient(newPatient);
+		patient.getNextPatient().setNextPatient(this.root);
 	}
 
 	public int count() {
 		if (this.root == null) {
 			return 0;
 		}
-		int length = 0;
+		int length = 1;
 		Patient patient = this.root;
-		do {
+		while (!patient.getNextPatient().equals(this.root)) {
 			length += 1;
 			patient = patient.getNextPatient();
-		} while (!patient.equals(this.root));
+		}
 		return length;
 	}
 
@@ -42,18 +41,21 @@ public class Hospital {
 	}
 
 	public void removePatient(String name) {
-		if (this.root != null && this.root.getName() == name) {
+		if (this.root == null) {
+			return;
+		}
+		if (this.root.getName() == name) {
 			this.root = this.root.getNextPatient();
 			return;
 		}
 		Patient patient = this.root;
-		do {
-			if (patient.getNextPatient() != null && patient.getNextPatient().getName() == name) {
+		while (!patient.getNextPatient().equals(this.root)) {
+			if (patient.getNextPatient().getName() == name) {
 				patient.setNextPatient(patient.getNextPatient().getNextPatient());
 				return;
 			}
 			patient = patient.getNextPatient();
-		} while (patient != null);
+		}
 	}
 
 }
